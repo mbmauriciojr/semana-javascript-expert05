@@ -1,8 +1,16 @@
 import { logger } from './logger.js';
+import FileHelper from './fileHelper.js';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
+
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const defaultDownloadsFolder = resolve(__dirname, '../', 'downloads');
 
 export default class Routes {
-  constructor() {
-
+  constructor(downloadsFolder = defaultDownloadsFolder) {
+    this.donwloadsFolder = downloadsFolder;
+    this.fileHelper = FileHelper;
   };
 
   setSocketInstance(io) {
@@ -24,8 +32,10 @@ export default class Routes {
   };
 
   async get(request, response) {
-    logger.info('get');
-    response.end();
+    const files = await this.fileHelper.getFilesStatus(this.donwloadsFolder);
+
+    response.writeHead(200);
+    response.end(JSON.stringify(files));
   };
 
   handler(request, response) {
