@@ -1,4 +1,4 @@
-import { logger } from "./logger";
+import { logger } from './logger.js';
 
 export default class Routes {
   constructor() {
@@ -29,7 +29,7 @@ export default class Routes {
   };
 
   handler(request, response) {
-    response.setHeader('Acess-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Origin', '*');
     const chosen = this[request.method.toLowerCase()] || this.defaultRoute;
 
     return chosen.apply(this, [request, response]);
