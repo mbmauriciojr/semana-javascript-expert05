@@ -102,5 +102,11 @@ describe('#Routes test suite', () =>{
       await routes.handler(...params.values());
       expect(routes.get).toHaveBeenCalled();
     });
-  })
+  });
+
+  describe('#get', () => {
+    test.skip('given method GET it should list all files downloaded', async () => {
+
+    });
+  });
 });
